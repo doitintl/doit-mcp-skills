@@ -1,0 +1,23 @@
+{
+  "name": "doit-mcp",
+  "description": "DoiT Cloud Intelligence platform plugin for Claude Code. Access 40+ tools for cloud cost management, reporting, anomaly detection, budgets, alerts, and more.",
+  "version": "0.9.0",
+  "author": {
+    "name": "DoiT International"
+  },
+  "homepage": "https://github.com/doitintl/doit-mcp-skills",
+  "repository": "https://github.com/doitintl/doit-mcp-skills",
+  "license": "MIT",
+  "keywords": [
+    "cloud",
+    "cost-management",
+    "finops",
+    "mcp",
+    "aws",
+    "gcp",
+    "azure",
+    "reporting",
+    "anomaly-detection",
+    "doit"
+  ]
+}
