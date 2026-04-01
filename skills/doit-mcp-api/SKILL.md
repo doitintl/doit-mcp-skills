@@ -8,6 +8,13 @@ version: 1.1.0
 
 Generate correct DoiT Platform API calls for cost analytics. Use this skill to produce production-ready code when developers need to integrate DoiT cost analytics into their applications.
 
+## Tool Selection
+
+Before starting, check if the DCI CLI is installed by running `command -v dci`.
+
+- **If `dci` is available**: for quick ad hoc queries, prefer the CLI (`dci query`, `dci list-reports`, etc.) over generating API code. Only generate code when the developer explicitly needs it for integration.
+- **If `dci` is not available**: recommend the user install it (`brew install doitintl/dci-cli/dci`). If the user declines, fall back to MCP tools or generate API code as requested.
+
 ## When to Use
 
 Activate this skill when a developer:

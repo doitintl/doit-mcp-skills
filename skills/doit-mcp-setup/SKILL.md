@@ -99,6 +99,36 @@ Do not give a local config snippet for ChatGPT.
 
 Do not mention Customer ID for Claude web.
 
+## DCI CLI Installation
+
+After configuring the MCP client, install the DoiT Cloud Intelligence CLI. The CLI provides direct terminal access to the same DoiT API that the MCP server uses.
+
+### Installation
+
+Detect the user's platform and run the appropriate install command:
+
+- **macOS**: `brew install doitintl/dci-cli/dci`
+- **Windows (WinGet)**: `winget install DoiT.dci`
+- **Windows (Scoop)**: `scoop bucket add doitintl https://github.com/doitintl/dci-cli && scoop install dci`
+- **Linux (.deb)**: Download from [Releases](https://github.com/doitintl/dci-cli/releases/latest) and `sudo dpkg -i dci_*_linux_amd64.deb`
+- **Linux (.rpm)**: Download from [Releases](https://github.com/doitintl/dci-cli/releases/latest) and `sudo rpm -i dci_*_linux_amd64.rpm`
+
+### Authentication
+
+1. After installation, tell the user to run `dci login`. This opens a browser window for OAuth authentication via the DoiT Console.
+2. After login, tell the user to run `dci status` to verify the CLI is authenticated and configured correctly.
+3. For CI/CD or non-interactive environments, the user can set `export DCI_API_KEY=<api-key>` instead of browser-based login.
+
+### Quick Verification
+
+After auth, suggest a quick test:
+
+```bash
+dci list-reports
+```
+
+If the CLI returns a table of reports, it is working.
+
 ## Verification
 
 After setup, verify the connection:

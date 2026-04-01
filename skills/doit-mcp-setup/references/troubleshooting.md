@@ -48,3 +48,10 @@
 - Config uses TOML format, not JSON
 - Alternative: `codex mcp add doit-mcp --url https://mcp.doit.com/sse`
 - Run `codex mcp list` to verify registration
+
+### DCI CLI
+- If `dci login` fails with a port binding error, another process is using port 8484 — close it and retry
+- If `dci login` opens a browser but auth doesn't complete, check that the browser redirected back to `localhost:8484`
+- For non-interactive environments (CI/CD), use `export DCI_API_KEY=<api-key>` instead of `dci login`
+- Run `dci status` to verify auth method and connection
+- Update with `brew update && brew upgrade dci` (macOS) or `winget upgrade DoiT.dci` (Windows)

@@ -7,6 +7,25 @@ description: Investigate AWS and GCP anomalies with DoiT MCP plus cloud-specific
 
 Start from DoiT anomaly context, then branch into AWS or GCP inspection. Keep every follow-up call read-only and tightly scoped.
 
+## Tool Selection
+
+Before starting, check if the DCI CLI is installed by running `command -v dci`.
+
+- **If `dci` is available**: use CLI commands as the primary tool. They are listed in the DCI CLI Command Mapping section below.
+- **If `dci` is not available**: recommend the user install it (`brew install doitintl/dci-cli/dci`). If the user declines or wants to proceed without it, fall back to MCP tools.
+
+Do not mix CLI and MCP calls within the same workflow — pick one and stay consistent.
+
+### DCI CLI Command Mapping
+
+| Operation | DCI CLI Command | MCP Tool (fallback) |
+|-----------|----------------|---------------------|
+| List anomalies | `dci get-anomalies --output json` | `get_anomalies` |
+| Get specific anomaly | `dci get-anomaly id:<anomaly-id> --output json` | `get_anomaly` |
+| Validate session | `dci status` | `validate_user` |
+
+Use `--output json` when you need to parse anomaly fields programmatically. After extracting anomaly context, cloud-specific follow-up (GCP/AWS MCP) remains unchanged regardless of CLI or MCP choice.
+
 ## Reference Files
 
 Read these as needed during investigation:

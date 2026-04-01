@@ -5,7 +5,28 @@ description: Generate DoiT Cloud Intelligence reports through MCP with the corre
 
 # DoiT MCP Reporting
 
-Generate report answers through DoiT MCP in the smallest reliable sequence. Prefer existing reports when they already answer the request.
+Generate report answers through DoiT in the smallest reliable sequence. Prefer existing reports when they already answer the request.
+
+## Tool Selection
+
+Before starting, check if the DCI CLI is installed by running `command -v dci`.
+
+- **If `dci` is available**: use CLI commands as the primary tool. They are listed in the DCI CLI Command Mapping section below.
+- **If `dci` is not available**: recommend the user install it (`brew install doitintl/dci-cli/dci`). If the user declines or wants to proceed without it, fall back to MCP tools.
+
+Do not mix CLI and MCP calls within the same workflow — pick one and stay consistent.
+
+### DCI CLI Command Mapping
+
+| Operation | DCI CLI Command | MCP Tool (fallback) |
+|-----------|----------------|---------------------|
+| Validate session | `dci status` | `validate_user` |
+| List reports | `dci list-reports` | `list_reports` |
+| Get report results | `dci get-report-results id:<report-id>` | `get_report_results` |
+| List dimensions | `dci list-dimensions` | `list_dimensions` |
+| Run ad hoc query | `dci query --output json body.config:'<config-json>'` | `run_query` |
+
+Add `--output json` when you need to parse the response programmatically. Default table format is fine for display.
 
 ## Reference Files
 
