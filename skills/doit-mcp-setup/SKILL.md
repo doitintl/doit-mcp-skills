@@ -121,7 +121,7 @@ Quick checks:
 
 ## Gotchas
 
-- **Claude Code requires `"type": "sse"`**: This is unique to Claude Code. Other clients infer the transport from the URL. Missing this field or using `"type": "http"` causes a silent connection failure.
+- **Claude Code requires `"type": "sse"` and `"oauth": { "callbackPort": 8080 }`**: This is unique to Claude Code. Other clients infer the transport from the URL. Missing the `type` field or using `"type": "http"` causes a silent connection failure. The `oauth.callbackPort` is required for the OAuth callback to complete.
 - **Cursor config is per-project**: The file lives at `.cursor/mcp.json` in the project root, not in the home directory. Setting it globally does not work.
 - **Codex uses TOML, not JSON**: Writing JSON syntax into `~/.codex/config.toml` will break the file. Use the TOML template.
 - **ChatGPT needs developer mode first**: Without enabling developer mode in Settings, the MCP connector option is not visible.

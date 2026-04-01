@@ -16,7 +16,7 @@
 |---------|-------------|-----|
 | Duplicate server entries | Previous setup with different key name (`doit`, `doit_mcp_server`, `doit-mcp`) | Ask user which to keep, remove duplicates |
 | Mixed local + remote config | Previous stdio setup alongside new HTTP setup | Remove the stdio entry; remote OAuth is the recommended flow |
-| Claude Code shows "type" error | Config missing `"type": "http"` | Claude Code requires explicit `type` field — other clients do not |
+| Claude Code shows "type" error or silent connection failure | Config missing `"type": "sse"` or using `"type": "http"` | Claude Code requires `"type": "sse"` — using `"http"` causes reconnection failure after OAuth |
 | Codex TOML parse error | JSON syntax in TOML file | Use `[mcp_servers.doit-mcp]` table syntax, not JSON |
 
 ## Client-Specific Notes
@@ -31,7 +31,8 @@
 - If the connector shows "disconnected", remove and re-add it
 
 ### Claude Code
-- The `"type": "http"` field is required — this is unique to Claude Code
+- The `"type": "sse"` field is required — this is unique to Claude Code. Using `"type": "http"` will cause OAuth to succeed but the server reconnection to fail
+- The `"oauth": { "callbackPort": 8080 }` block is required for the OAuth callback
 - Project-scoped config goes under the project's `mcpServers` key, not the top-level one
 - Run `/mcp` to check server status without restarting
 
