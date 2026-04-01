@@ -115,19 +115,14 @@ Detect the user's platform and run the appropriate install command:
 
 ### Authentication
 
-1. After installation, tell the user to run `dci login`. This opens a browser window for OAuth authentication via the DoiT Console.
-2. After login, tell the user to run `dci status` to verify the CLI is authenticated and configured correctly.
-3. For CI/CD or non-interactive environments, the user can set `export DCI_API_KEY=<api-key>` instead of browser-based login.
+1. Run `dci login` directly. This opens a browser window for OAuth authentication via the DoiT Console.
+2. Tell the user to complete the authorization in the browser that just opened.
+3. After the user confirms they authorized, run `dci status` to verify the CLI is authenticated.
+4. For CI/CD or non-interactive environments, the user can set `export DCI_API_KEY=<api-key>` instead of browser-based login.
 
 ### Quick Verification
 
-After auth, suggest a quick test:
-
-```bash
-dci list-reports
-```
-
-If the CLI returns a table of reports, it is working.
+After auth, run `dci list-reports` to confirm the CLI is working. If it returns a table of reports, the setup is complete.
 
 ## Verification
 
