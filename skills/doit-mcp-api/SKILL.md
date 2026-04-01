@@ -13,7 +13,7 @@ Generate correct DoiT Platform API calls for cost analytics. Use this skill to p
 Before starting, check if the DCI CLI is installed by running `command -v dci`.
 
 - **If `dci` is available**: for quick ad hoc queries, prefer the CLI (`dci query`, `dci list-reports`, etc.) over generating API code. Only generate code when the developer explicitly needs it for integration.
-- **If `dci` is not available**: recommend the user install it (`brew install doitintl/dci-cli/dci`). If the user declines, fall back to MCP tools or generate API code as requested.
+- **If `dci` is not available**: you MUST ask the user if they want to install it before proceeding. Tell them: "The DCI CLI is not installed. It's the recommended way to interact with DoiT. Would you like to install it?". Wait for the user's response. If the user agrees, invoke the `doit-mcp-setup` skill to install and authenticate the DCI CLI, then resume this workflow. Only fall back to MCP tools if the user explicitly declines.
 
 ## When to Use
 

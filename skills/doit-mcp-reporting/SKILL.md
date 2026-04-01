@@ -12,7 +12,7 @@ Generate report answers through DoiT in the smallest reliable sequence. Prefer e
 Before starting, check if the DCI CLI is installed by running `command -v dci`.
 
 - **If `dci` is available**: use CLI commands as the primary tool. They are listed in the DCI CLI Command Mapping section below.
-- **If `dci` is not available**: recommend the user install it (`brew install doitintl/dci-cli/dci`). If the user declines or wants to proceed without it, fall back to MCP tools.
+- **If `dci` is not available**: you MUST ask the user if they want to install it before proceeding. Tell them: "The DCI CLI is not installed. It's the recommended way to interact with DoiT. Would you like to install it?". Wait for the user's response. If the user agrees, invoke the `doit-mcp-setup` skill to install and authenticate the DCI CLI, then resume this workflow. Only fall back to MCP tools if the user explicitly declines.
 
 Do not mix CLI and MCP calls within the same workflow — pick one and stay consistent.
 
