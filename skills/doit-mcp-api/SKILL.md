@@ -1,6 +1,6 @@
 ---
 name: doit-mcp-api
-description: This skill should be used when the user asks to "call the DoiT API", "query cloud costs", "build a cost analysis query", "list DoiT reports", "filter costs by service", "get spending data", "analyze cloud spending", or needs help with DoiT Platform Analytics API integration.
+description: Use this skill when the user asks to integrate with the DoiT API, generate API code, build programmatic queries, or needs DoiT API reference. Triggers on requests like "call the DoiT API", "write code to query costs", "DoiT API example", "integrate DoiT into my app", or any DoiT API development task. For interactive cost queries and reports, prefer the doit-mcp-reporting skill instead.
 version: 1.1.0
 ---
 

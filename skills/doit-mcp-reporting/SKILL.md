@@ -1,6 +1,6 @@
 ---
 name: doit-mcp-reporting
-description: Generate DoiT Cloud Intelligence reports through MCP with the correct tool order and minimal query surface. Use when the agent needs to retrieve saved report results, run ad hoc Cloud Analytics queries, summarize invoices, list dimensions before building a query, or produce report-style output from the DoiT MCP server.
+description: Use this skill ALWAYS when the user asks about cloud costs, spending, reports, services, invoices, or any DoiT Cloud Analytics data. Triggers on requests like "create a report", "show my costs", "top services", "spending by project", "list reports", "monthly cost breakdown", "cost by region", "how much am I spending", or any cloud cost analysis. This skill MUST be used before calling any DoiT MCP tools directly.
 ---
 
 # DoiT MCP Reporting

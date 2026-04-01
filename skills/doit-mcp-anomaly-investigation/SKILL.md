@@ -1,6 +1,6 @@
 ---
 name: doit-mcp-anomaly-investigation
-description: Investigate AWS and GCP anomalies with DoiT MCP plus cloud-specific MCP follow-up. Use when the agent needs to analyze a cost anomaly, spending spike, suspicious SKU or service charge, root-cause an anomaly from DoiT context, or decide which AWS or GCP MCP tools to call before giving recommendations.
+description: Use this skill ALWAYS when the user asks about cost anomalies, spending spikes, unexpected charges, or suspicious costs. Triggers on requests like "show anomalies", "why did my costs spike", "investigate this charge", "what happened to my spending", "unusual costs", "cost alert", or any anomaly analysis. This skill MUST be used before calling any DoiT anomaly MCP tools directly.
 ---
 
 # DoiT MCP Anomaly Investigation

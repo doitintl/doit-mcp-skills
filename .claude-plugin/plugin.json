@@ -1,7 +1,7 @@
 {
   "name": "doit-mcp",
   "description": "DoiT Cloud Intelligence platform plugin for Claude Code. Access 40+ tools for cloud cost management, reporting, anomaly detection, budgets, alerts, and more.",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "author": {
     "name": "DoiT International"
   },
