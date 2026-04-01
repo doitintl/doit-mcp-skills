@@ -19,5 +19,7 @@
     "reporting",
     "anomaly-detection",
     "doit"
-  ]
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
 }

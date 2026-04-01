@@ -15,19 +15,30 @@ Query cloud costs, investigate anomalies, generate reports, and produce API inte
 
 ## Quick Start
 
-### Claude Code
+### Claude Code (Plugin)
+
+Install as a plugin for the full experience — skills, MCP server, and tools in one package:
 
 ```bash
-claude install-skill https://github.com/doitintl/doit-mcp-skills
+claude plugin marketplace add https://github.com/doitintl/doit-mcp-skills
+claude plugin install doit-mcp@doit-mcp-skills
 ```
 
-Then ask your agent:
+Restart Claude Code, then ask:
 
 ```
 Set up DoiT MCP for Claude Code
 ```
 
 The setup skill will configure the MCP connection and guide you through OAuth authorization.
+
+### Claude Code (Skills Only)
+
+If you only want the skills without the plugin wrapper:
+
+```bash
+claude install-skill https://github.com/doitintl/doit-mcp-skills
+```
 
 ### Other Clients
 
@@ -57,7 +68,8 @@ Ask your agent to run the **doit-mcp-setup** skill for your client:
 ```
 doit-mcp-skills/
 ├── .claude-plugin/          # Claude Code plugin metadata
-│   └── plugin.json
+│   ├── plugin.json          # Plugin manifest (skills + MCP config)
+│   └── marketplace.json     # Marketplace manifest for plugin install
 ├── .mcp.json                # MCP server configuration
 └── skills/
     ├── doit-mcp-setup/      # Client setup & configuration
