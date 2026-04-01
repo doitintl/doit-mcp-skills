@@ -21,12 +21,14 @@ Do not mix CLI and MCP calls within the same workflow — pick one and stay cons
 | Operation | DCI CLI Command | MCP Tool (fallback) |
 |-----------|----------------|---------------------|
 | Validate session | `dci status` | `validate_user` |
-| List reports | `dci list-reports` | `list_reports` |
-| Get report results | `dci get-report-results id:<report-id>` | `get_report_results` |
-| List dimensions | `dci list-dimensions` | `list_dimensions` |
-| Run ad hoc query | `dci query --output json body.config:'<config-json>'` | `run_query` |
+| List reports | `dci list-reports --output json` | `list_reports` |
+| Get report details | `dci get-report <report-id> --output json` | `get_report_results` |
+| Get report config | `dci get-report-config <report-id> --output json` | N/A |
+| List dimensions | `dci list-dimensions --output json` | `list_dimensions` |
+| Run structured query | `dci query --output json < query.json` | `run_query` |
+| Run SQL query | `dci query body.query:"SELECT ..." --output json` | N/A |
 
-Add `--output json` when you need to parse the response programmatically. Default table format is fine for display.
+Use `--output json` for agent parsing, `--output table` for user display. For full DCI CLI query patterns and examples, read `references/dci-cli.md`.
 
 ## Reference Files
 
@@ -36,6 +38,7 @@ Read these as needed when building queries:
 - `references/metrics-and-options.md` — metric types, aggregators, time intervals, data sources, filter operators. Read this when configuring query options.
 - `references/query-examples.md` — common query patterns with ready-to-use field combinations. Read this before building an ad hoc query to see if a pattern already fits.
 - `templates/report-output.md` — output template for presenting results. Copy and fill in when formatting the final report.
+- `references/dci-cli.md` — DCI CLI command reference, query modes, and output formats. Read this when using the CLI path.
 
 ## Core Tool Order
 
