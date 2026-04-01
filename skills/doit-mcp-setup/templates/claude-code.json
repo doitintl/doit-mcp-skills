@@ -1,6 +1,7 @@
 {
   "mcpServers": {
     "doit-mcp": {
+      "type": "sse",
       "url": "https://mcp.doit.com/sse",
       "oauth": {
         "callbackPort": 8080
