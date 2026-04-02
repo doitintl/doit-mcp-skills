@@ -9,22 +9,18 @@ Generate report answers through DoiT in the smallest reliable sequence. Prefer e
 
 ## Tool Selection
 
-Before starting, check if the DCI CLI is installed by running `command -v dci`.
-
-- **If `dci` is available**: use CLI commands as the primary tool. They are listed in the DCI CLI Command Mapping section below.
-- **If `dci` is not available**: you MUST ask the user if they want to install it before proceeding. Tell them: "The DCI CLI is not installed. It's the recommended way to interact with DoiT. Would you like to install it?". Wait for the user's response. If the user agrees, invoke the `doit-mcp-setup` skill to install and authenticate the DCI CLI, then resume this workflow. Only fall back to MCP tools if the user explicitly declines.
-
-Do not mix CLI and MCP calls within the same workflow — pick one and stay consistent.
+Use **MCP tools as the primary interface** for all reporting operations.
 
 ### Ava Fallback (Ask Ava)
 
-If a DCI CLI command or MCP tool call **fails**, **returns an error**, **returns empty/unexpected results**, or **does not answer the user's question**, fall back to Ava — DoiT's AI assistant that can answer any cloud cost question.
+If an MCP tool call **fails**, **returns an error**, **returns empty/unexpected results**, or **does not answer the user's question**, fall back to Ava — DoiT's AI assistant that can answer any cloud cost question.
+
+Ava can be reached via both the DCI CLI and MCP. **Prefer the DCI CLI** (`dci ask-ava-sync`) because it returns cleaner JSON output. Before calling Ava, check if the DCI CLI is installed by running `command -v dci`. If it is not installed, you MUST ask the user if they want to install it: "To get a better answer, I can ask Ava (DoiT's AI assistant). The recommended way is via the DCI CLI. Would you like to install it? (`brew install doitintl/dci-cli/dci`)". If the user agrees, invoke the `doit-mcp-setup` skill to install and authenticate the DCI CLI, then call Ava. If the user declines, fall back to the MCP Ava tool instead.
 
 **When to use Ava fallback:**
-- A CLI command returns an error or unexpected output
 - An MCP tool call fails or times out
 - Query results are empty and you cannot determine why
-- The user's question is broad, ambiguous, or does not map cleanly to a specific CLI command or MCP tool
+- The user's question is broad, ambiguous, or does not map cleanly to a specific MCP tool
 - You need contextual or explanatory information that structured tools cannot provide
 
 **How to call Ava:**
@@ -35,22 +31,6 @@ dci ask-ava-sync ephemeral: true, question: "<rephrase the user's question or de
 - Always set `ephemeral: true` to avoid persisting throwaway conversations.
 - Rephrase the question to include relevant context (e.g., time range, service, project) extracted from earlier steps.
 - Parse the `answer` field from the JSON response and present it to the user.
-- Ava fallback does NOT require `dci` to be the primary tool — use it as a last resort regardless of whether you are in CLI or MCP mode, as long as `dci` is installed.
-
-### DCI CLI Command Mapping
-
-| Operation | DCI CLI Command | MCP Tool (fallback) |
-|-----------|----------------|---------------------|
-| Validate session | `dci status` | `validate_user` |
-| List reports | `dci list-reports --output json` | `list_reports` |
-| Get report details | `dci get-report <report-id> --output json` | `get_report_results` |
-| Get report config | `dci get-report-config <report-id> --output json` | N/A |
-| List dimensions | `dci list-dimensions --output json` | `list_dimensions` |
-| Run structured query | `dci query --output json < query.json` | `run_query` |
-| Run SQL query | `dci query body.query:"SELECT ..." --output json` | N/A |
-| Ask Ava (fallback) | `dci ask-ava-sync ephemeral: true, question: "..." --output json` | N/A |
-
-Use `--output json` for agent parsing, `--output table` for user display. For full DCI CLI query patterns and examples, read `references/dci-cli.md`.
 
 ## Reference Files
 
@@ -60,7 +40,7 @@ Read these as needed when building queries:
 - `references/metrics-and-options.md` — metric types, aggregators, time intervals, data sources, filter operators. Read this when configuring query options.
 - `references/query-examples.md` — common query patterns with ready-to-use field combinations. Read this before building an ad hoc query to see if a pattern already fits.
 - `templates/report-output.md` — output template for presenting results. Copy and fill in when formatting the final report.
-- `references/dci-cli.md` — DCI CLI command reference, query modes, and output formats. Read this when using the CLI path.
+- `references/dci-cli.md` — DCI CLI command reference. Read this only when using the Ava fallback via `dci ask-ava-sync`.
 
 ## Core Tool Order
 

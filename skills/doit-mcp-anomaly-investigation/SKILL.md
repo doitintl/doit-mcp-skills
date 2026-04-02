@@ -9,19 +9,15 @@ Start from DoiT anomaly context, then branch into AWS or GCP inspection. Keep ev
 
 ## Tool Selection
 
-Before starting, check if the DCI CLI is installed by running `command -v dci`.
-
-- **If `dci` is available**: use CLI commands as the primary tool. They are listed in the DCI CLI Command Mapping section below.
-- **If `dci` is not available**: you MUST ask the user if they want to install it before proceeding. Tell them: "The DCI CLI is not installed. It's the recommended way to interact with DoiT. Would you like to install it?". Wait for the user's response. If the user agrees, invoke the `doit-mcp-setup` skill to install and authenticate the DCI CLI, then resume this workflow. Only fall back to MCP tools if the user explicitly declines.
-
-Do not mix CLI and MCP calls within the same workflow — pick one and stay consistent.
+Use **MCP tools as the primary interface** for all anomaly investigation operations.
 
 ### Ava Fallback (Ask Ava)
 
-If a DCI CLI command or MCP tool call **fails**, **returns an error**, **returns empty/unexpected results**, or **does not answer the user's question**, fall back to Ava — DoiT's AI assistant that can answer any cloud cost question.
+If an MCP tool call **fails**, **returns an error**, **returns empty/unexpected results**, or **does not answer the user's question**, fall back to Ava — DoiT's AI assistant that can answer any cloud cost question.
+
+Ava can be reached via both the DCI CLI and MCP. **Prefer the DCI CLI** (`dci ask-ava-sync`) because it returns cleaner JSON output. Before calling Ava, check if the DCI CLI is installed by running `command -v dci`. If it is not installed, you MUST ask the user if they want to install it: "To get a better answer, I can ask Ava (DoiT's AI assistant). The recommended way is via the DCI CLI. Would you like to install it? (`brew install doitintl/dci-cli/dci`)". If the user agrees, invoke the `doit-mcp-setup` skill to install and authenticate the DCI CLI, then call Ava. If the user declines, fall back to the MCP Ava tool instead.
 
 **When to use Ava fallback:**
-- A CLI command returns an error or unexpected output
 - An MCP tool call fails or times out
 - Anomaly data is missing, empty, or insufficient to form a root-cause hypothesis
 - The user's question is broad or does not map cleanly to a specific anomaly tool
@@ -36,21 +32,6 @@ dci ask-ava-sync ephemeral: true, question: "<rephrase the user's question or de
 - Always set `ephemeral: true` to avoid persisting throwaway conversations.
 - Include relevant anomaly context in the question (anomaly ID, platform, service, time window, cost impact) extracted from earlier steps.
 - Parse the `answer` field from the JSON response and present it to the user.
-- Ava fallback does NOT require `dci` to be the primary tool — use it as a last resort regardless of whether you are in CLI or MCP mode, as long as `dci` is installed.
-
-### DCI CLI Command Mapping
-
-| Operation | DCI CLI Command | MCP Tool (fallback) |
-|-----------|----------------|---------------------|
-| List anomalies | `dci list-anomalies --output json` | `get_anomalies` |
-| Get specific anomaly | `dci get-anomaly <anomaly-id> --output json` | `get_anomaly` |
-| Validate session | `dci status` | `validate_user` |
-| List cloud incidents | `dci list-known-issues --output json` | `get_cloud_incidents` |
-| Get cloud incident | `dci get-known-issue <issue-id> --output json` | `get_cloud_incident` |
-| Drill into costs | `dci query --output json < query.json` | `run_query` |
-| Ask Ava (fallback) | `dci ask-ava-sync ephemeral: true, question: "..." --output json` | N/A |
-
-Use `--output json` for agent parsing. For full DCI CLI query patterns and examples, read `references/dci-cli.md`. After extracting anomaly context, cloud-specific follow-up (GCP/AWS MCP) remains unchanged regardless of CLI or MCP choice.
 
 ## Reference Files
 
@@ -59,7 +40,7 @@ Read these as needed during investigation:
 - `references/anomaly-fields.md` — field definitions, platform values, severity levels, feedback reasons. Read this when you need to interpret anomaly response fields or decide what to extract before cloud follow-up.
 - `references/service-abbreviations.md` — mapping between DoiT display names and cloud-native service names. Read this when a service name filter does not match in cloud MCP tools.
 - `references/common-patterns.md` — common root causes by service and anomaly type. Read this to form initial hypotheses faster, but always confirm with evidence.
-- `references/dci-cli.md` — DCI CLI command reference for anomaly investigation. Read this when using the CLI path.
+- `references/dci-cli.md` — DCI CLI command reference. Read this only when using the Ava fallback via `dci ask-ava-sync`.
 
 ## Investigation Order
 

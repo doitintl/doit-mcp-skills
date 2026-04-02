@@ -10,17 +10,15 @@ Generate correct DoiT Platform API calls for cost analytics. Use this skill to p
 
 ## Tool Selection
 
-Before starting, check if the DCI CLI is installed by running `command -v dci`.
-
-- **If `dci` is available**: for quick ad hoc queries, prefer the CLI (`dci query`, `dci list-reports`, etc.) over generating API code. Only generate code when the developer explicitly needs it for integration.
-- **If `dci` is not available**: you MUST ask the user if they want to install it before proceeding. Tell them: "The DCI CLI is not installed. It's the recommended way to interact with DoiT. Would you like to install it?". Wait for the user's response. If the user agrees, invoke the `doit-mcp-setup` skill to install and authenticate the DCI CLI, then resume this workflow. Only fall back to MCP tools if the user explicitly declines.
+Use **MCP tools as the primary interface** for all DoiT API operations. Only generate API code when the developer explicitly needs it for integration into their own applications.
 
 ### Ava Fallback (Ask Ava)
 
-If a DCI CLI command or MCP tool call **fails**, **returns an error**, **returns empty/unexpected results**, or **does not answer the user's question**, fall back to Ava — DoiT's AI assistant that can answer any cloud cost question.
+If an MCP tool call **fails**, **returns an error**, **returns empty/unexpected results**, or **does not answer the user's question**, fall back to Ava — DoiT's AI assistant that can answer any cloud cost question.
+
+Ava can be reached via both the DCI CLI and MCP. **Prefer the DCI CLI** (`dci ask-ava-sync`) because it returns cleaner JSON output. Before calling Ava, check if the DCI CLI is installed by running `command -v dci`. If it is not installed, you MUST ask the user if they want to install it: "To get a better answer, I can ask Ava (DoiT's AI assistant). The recommended way is via the DCI CLI. Would you like to install it? (`brew install doitintl/dci-cli/dci`)". If the user agrees, invoke the `doit-mcp-setup` skill to install and authenticate the DCI CLI, then call Ava. If the user declines, fall back to the MCP Ava tool instead.
 
 **When to use Ava fallback:**
-- A CLI command returns an error or unexpected output
 - An MCP tool call fails or times out
 - Query results are empty and you cannot determine why
 - The user's question is about DoiT API behavior, field meanings, or best practices that structured tools cannot answer
@@ -34,7 +32,6 @@ dci ask-ava-sync ephemeral: true, question: "<rephrase the user's question or de
 - Always set `ephemeral: true` to avoid persisting throwaway conversations.
 - Rephrase the question to include relevant context (e.g., endpoint, error message, dimension ID) from earlier steps.
 - Parse the `answer` field from the JSON response and present it to the user.
-- Ava fallback does NOT require `dci` to be the primary tool — use it as a last resort regardless of whether you are in CLI or MCP mode, as long as `dci` is installed.
 
 ## When to Use
 
