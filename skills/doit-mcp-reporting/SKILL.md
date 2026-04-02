@@ -16,6 +16,27 @@ Before starting, check if the DCI CLI is installed by running `command -v dci`.
 
 Do not mix CLI and MCP calls within the same workflow — pick one and stay consistent.
 
+### Ava Fallback (Ask Ava)
+
+If a DCI CLI command or MCP tool call **fails**, **returns an error**, **returns empty/unexpected results**, or **does not answer the user's question**, fall back to Ava — DoiT's AI assistant that can answer any cloud cost question.
+
+**When to use Ava fallback:**
+- A CLI command returns an error or unexpected output
+- An MCP tool call fails or times out
+- Query results are empty and you cannot determine why
+- The user's question is broad, ambiguous, or does not map cleanly to a specific CLI command or MCP tool
+- You need contextual or explanatory information that structured tools cannot provide
+
+**How to call Ava:**
+```bash
+dci ask-ava-sync ephemeral: true, question: "<rephrase the user's question or describe what you need>" --output json
+```
+
+- Always set `ephemeral: true` to avoid persisting throwaway conversations.
+- Rephrase the question to include relevant context (e.g., time range, service, project) extracted from earlier steps.
+- Parse the `answer` field from the JSON response and present it to the user.
+- Ava fallback does NOT require `dci` to be the primary tool — use it as a last resort regardless of whether you are in CLI or MCP mode, as long as `dci` is installed.
+
 ### DCI CLI Command Mapping
 
 | Operation | DCI CLI Command | MCP Tool (fallback) |
@@ -27,6 +48,7 @@ Do not mix CLI and MCP calls within the same workflow — pick one and stay cons
 | List dimensions | `dci list-dimensions --output json` | `list_dimensions` |
 | Run structured query | `dci query --output json < query.json` | `run_query` |
 | Run SQL query | `dci query body.query:"SELECT ..." --output json` | N/A |
+| Ask Ava (fallback) | `dci ask-ava-sync ephemeral: true, question: "..." --output json` | N/A |
 
 Use `--output json` for agent parsing, `--output table` for user display. For full DCI CLI query patterns and examples, read `references/dci-cli.md`.
 

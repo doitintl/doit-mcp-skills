@@ -16,6 +16,28 @@ Before starting, check if the DCI CLI is installed by running `command -v dci`.
 
 Do not mix CLI and MCP calls within the same workflow — pick one and stay consistent.
 
+### Ava Fallback (Ask Ava)
+
+If a DCI CLI command or MCP tool call **fails**, **returns an error**, **returns empty/unexpected results**, or **does not answer the user's question**, fall back to Ava — DoiT's AI assistant that can answer any cloud cost question.
+
+**When to use Ava fallback:**
+- A CLI command returns an error or unexpected output
+- An MCP tool call fails or times out
+- Anomaly data is missing, empty, or insufficient to form a root-cause hypothesis
+- The user's question is broad or does not map cleanly to a specific anomaly tool
+- You need contextual or explanatory information (e.g., "what typically causes this type of spike?") that structured tools cannot provide
+- Cloud-specific follow-up is unavailable (Azure, Snowflake, Datadog, Databricks, OpenAI) and you need deeper analysis
+
+**How to call Ava:**
+```bash
+dci ask-ava-sync ephemeral: true, question: "<rephrase the user's question or describe what you need>" --output json
+```
+
+- Always set `ephemeral: true` to avoid persisting throwaway conversations.
+- Include relevant anomaly context in the question (anomaly ID, platform, service, time window, cost impact) extracted from earlier steps.
+- Parse the `answer` field from the JSON response and present it to the user.
+- Ava fallback does NOT require `dci` to be the primary tool — use it as a last resort regardless of whether you are in CLI or MCP mode, as long as `dci` is installed.
+
 ### DCI CLI Command Mapping
 
 | Operation | DCI CLI Command | MCP Tool (fallback) |
@@ -26,6 +48,7 @@ Do not mix CLI and MCP calls within the same workflow — pick one and stay cons
 | List cloud incidents | `dci list-known-issues --output json` | `get_cloud_incidents` |
 | Get cloud incident | `dci get-known-issue <issue-id> --output json` | `get_cloud_incident` |
 | Drill into costs | `dci query --output json < query.json` | `run_query` |
+| Ask Ava (fallback) | `dci ask-ava-sync ephemeral: true, question: "..." --output json` | N/A |
 
 Use `--output json` for agent parsing. For full DCI CLI query patterns and examples, read `references/dci-cli.md`. After extracting anomaly context, cloud-specific follow-up (GCP/AWS MCP) remains unchanged regardless of CLI or MCP choice.
 
