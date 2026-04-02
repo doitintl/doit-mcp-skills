@@ -6,12 +6,14 @@ Query cloud costs, investigate anomalies, generate reports, and produce API inte
 
 ## Skills
 
-| Skill | Description |
-|-------|-------------|
-| **[doit-mcp-setup](skills/doit-mcp-setup/)** | Configure DoiT MCP in any supported AI client with correct credentials and OAuth |
-| **[doit-mcp-reporting](skills/doit-mcp-reporting/)** | Generate cost intelligence reports and run ad-hoc Cloud Analytics queries |
-| **[doit-mcp-anomaly-investigation](skills/doit-mcp-anomaly-investigation/)** | Root-cause cost anomalies by correlating DoiT alerts with cloud-specific inspection |
-| **[doit-mcp-api](skills/doit-mcp-api/)** | Generate production-ready API call code (TypeScript, Python, Go, Bash) for DoiT Platform |
+
+| Skill                                                                        | Description                                                                              |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **[doit-mcp-setup](skills/doit-mcp-setup/)**                                 | Configure DoiT MCP in any supported AI client with correct credentials and OAuth         |
+| **[doit-mcp-reporting](skills/doit-mcp-reporting/)**                         | Generate cost intelligence reports and run ad-hoc Cloud Analytics queries                |
+| **[doit-mcp-anomaly-investigation](skills/doit-mcp-anomaly-investigation/)** | Root-cause cost anomalies by correlating DoiT alerts with cloud-specific inspection      |
+| **[doit-mcp-api](skills/doit-mcp-api/)**                                     | Generate production-ready API call code (TypeScript, Python, Go, Bash) for DoiT Platform |
+
 
 ## Quick Start
 
@@ -23,14 +25,6 @@ Install as a plugin for the full experience — skills, MCP server, and tools in
 claude plugin marketplace add https://github.com/doitintl/doit-mcp-skills
 claude plugin install doit-mcp@doit-mcp-skills
 ```
-
-Restart Claude Code, then ask:
-
-```
-Set up DoiT MCP for Claude Code
-```
-
-The setup skill will configure the MCP connection and guide you through OAuth authorization.
 
 ### Claude Code (Skills Only)
 
@@ -52,14 +46,17 @@ Ask your agent to run the **doit-mcp-setup** skill for your client:
 ## What You Can Do
 
 **Cost Reporting**
+
 > "Show me my top 5 cost drivers for the last 30 days"
 > "Break down GCP costs by project for Q1"
 
 **Anomaly Investigation**
+
 > "Show me recent cost anomalies"
 > "Investigate the EC2 cost spike from last Tuesday"
 
 **API Code Generation**
+
 > "Generate TypeScript code to query costs by service for the last month"
 > "Show me a Python script that lists all my cloud reports"
 
