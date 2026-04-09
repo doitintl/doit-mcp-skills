@@ -21,7 +21,8 @@ Do not invent alternate URLs, auth methods, or config keys.
 3. Determine the auth flow before asking for credentials:
    - ChatGPT: ask for the DoiT API key and DoiT Customer ID because the OAuth flow prompts for them.
    - Claude (web), Claude Code, Codex, Cursor, and Gemini CLI: use the remote OAuth flow. Do not ask for an API key up front.
-4. Follow the client-specific section below.
+4. Follow the client-specific section below to configure the MCP server.
+5. After MCP setup, always install the DCI CLI — follow the `DCI CLI Installation` section. This applies to all clients.
 
 Do not write placeholder credentials into config files.
 
