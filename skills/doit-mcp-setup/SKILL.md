@@ -33,13 +33,17 @@ These clients have local config files the agent can write directly. Use the temp
 
 Config file: `~/.claude.json`
 Template: `templates/claude-code.json`
+Plugin registry: `~/.claude/plugins/installed_plugins.json`
 
-1. Read `~/.claude.json`.
-2. Read `templates/claude-code.json` for the server snippet.
-3. If the user wants the server available only for one project, merge the snippet into that project's `mcpServers` key. Otherwise merge it into the top-level `mcpServers` key. Preserve any existing servers.
-4. Write the merged result back to `~/.claude.json`.
-5. Tell the user to open the MCP UI in Claude Code and click `Authorize` for the DoiT server.
-6. Tell the user to restart Claude Code or run `/mcp` if the server does not appear immediately after saving.
+1. Read `~/.claude/plugins/installed_plugins.json`.
+2. Check whether `doit-mcp@doit-mcp-skills` exists in the `plugins` object. If it does, the plugin is already installed — confirm to the user that the MCP server is already configured via the plugin and skip the remaining steps. Tell the user to run `/mcp` in Claude Code to verify the server is connected, then click `Authorize` if it is not yet authorized.
+3. If the plugin is not installed, proceed with manual MCP install:
+   - Read `~/.claude.json`.
+   - Read `templates/claude-code.json` for the server snippet.
+   - If the user wants the server available only for one project, merge the snippet into that project's `mcpServers` key. Otherwise merge it into the top-level `mcpServers` key. Preserve any existing servers.
+   - Write the merged result back to `~/.claude.json`.
+   - Tell the user to open the MCP UI in Claude Code and click `Authorize` for the DoiT server.
+   - Tell the user to restart Claude Code or run `/mcp` if the server does not appear immediately after saving.
 
 ### Cursor
 
