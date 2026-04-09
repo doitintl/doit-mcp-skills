@@ -26,12 +26,24 @@ claude plugin marketplace add https://github.com/doitintl/doit-mcp-skills
 claude plugin install doit-mcp@doit-mcp-skills
 ```
 
+Then optionally run the setup skill to configure credentials:
+
+```
+/doit-mcp-setup
+```
+
 ### Claude Code (Skills Only)
 
 If you only want the skills without the plugin wrapper:
 
 ```bash
 claude install-skill https://github.com/doitintl/doit-mcp-skills
+```
+
+Then optionally run the setup skill to configure credentials:
+
+```
+/doit-mcp-setup
 ```
 
 ### Other AI Clients (Cursor, Codex, Gemini CLI, ChatGPT)
