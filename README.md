@@ -34,14 +34,33 @@ If you only want the skills without the plugin wrapper:
 claude install-skill https://github.com/doitintl/doit-mcp-skills
 ```
 
-### Other Clients
+### Other AI Clients (Cursor, Codex, Gemini CLI, ChatGPT)
 
-Ask your agent to run the **doit-mcp-setup** skill for your client:
+The skills in this repo are plain Markdown files — any AI that can read a file can use them. To set up DoiT MCP in a non-Claude client:
+
+1. **Point your agent at the skill file** — paste the contents of the relevant `SKILL.md` into your agent's context, or reference the file directly if your client supports file attachments.
+2. **Run setup** — tell your agent: *"Follow the instructions in this skill to configure DoiT MCP for [your client]."*
+3. The agent will write the correct config file and guide you through any OAuth steps.
+
+Alternatively, ask your agent to run the **doit-mcp-setup** skill for your client:
 
 - **Cursor** — per-project `.cursor/mcp.json` configuration
 - **ChatGPT** — manual setup via Actions UI (requires developer mode + API key)
 - **Codex** — `~/.codex/config.toml` configuration
 - **Gemini CLI** — `~/.gemini/settings.json` configuration
+
+### DCI CLI (Optional)
+
+The setup skill can also install the **DoiT Cloud Intelligence CLI** — a terminal companion that talks to the same DoiT API as the MCP server. Run the setup skill and choose the CLI option, or install it directly:
+
+| Platform | Command |
+| -------- | ------- |
+| macOS | `brew install doitintl/dci-cli/dci` |
+| Windows (WinGet) | `winget install DoiT.dci` |
+| Windows (Scoop) | `scoop bucket add doitintl https://github.com/doitintl/dci-cli && scoop install dci` |
+| Linux (.deb / .rpm) | Download from [Releases](https://github.com/doitintl/dci-cli/releases/latest) |
+
+After install, run `dci login` to authenticate and `dci list-reports` to verify.
 
 ## What You Can Do
 
