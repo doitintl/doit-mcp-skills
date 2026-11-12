@@ -26,11 +26,25 @@ claude plugin marketplace add https://github.com/doitintl/doit-mcp-skills
 claude plugin install doit-mcp@doit-mcp-skills
 ```
 
-Then optionally run the setup skill to configure credentials:
+Then run `/mcp` in Claude Code and authorize the DoiT server.
 
-```
-/doit-mcp-setup
-```
+### Claude Code channel (optional)
+
+The plugin can also act as a Claude Code [channel](https://code.claude.com/docs/en/channels) (research preview): while a session is open, it tells Claude about new cost anomalies and cloud provider incidents, and Claude can look into them with the DoiT tools.
+
+1. Run `/plugin configure doit-mcp@doit-mcp-skills` and set **DoiT API key (channel only)** to a personal API token from the DoiT console (Profile > API tokens). The tools keep signing in through your browser; only the channel uses the key.
+2. Start Claude Code with the channel:
+
+   ```bash
+   claude --channels plugin:doit-mcp@doit-mcp-skills
+   ```
+
+Plain `--channels` registers the plugin only where your organization allows it (`channelsEnabled` and `allowedChannelPlugins` in managed settings). Use the plugin id that `/plugin` shows if you installed it from another marketplace.
+
+What the channel runs and sends: `npx -y @doitintl/doit-mcp-server@3.1.0` (the open-source [DoiT MCP server](https://github.com/doitintl/doit-mcp-server), pinned to an exact version) in events-only mode. It serves no tools. With an API key set it polls two read-only DoiT API endpoints (cost anomalies and active cloud incidents) every 5 minutes by default, in every Claude Code session the plugin is loaded into, and sends requests only to the DoiT API. Events contain a fixed sentence and identifiers only. Without an API key it does nothing.
+
+- Support: <https://support.doit.com>
+- Privacy policy: <https://www.doit.com/privacy>
 
 ### Claude Code (Skills Only)
 
@@ -40,7 +54,7 @@ If you only want the skills without the plugin wrapper:
 claude install-skill https://github.com/doitintl/doit-mcp-skills
 ```
 
-Then optionally run the setup skill to configure credentials:
+Then optionally run the setup skill for connection steps:
 
 ```
 /doit-mcp-setup
@@ -52,7 +66,7 @@ The skills in this repo are plain Markdown files — any AI that can read a file
 
 1. **Point your agent at the skill file** — paste the contents of the relevant `SKILL.md` into your agent's context, or reference the file directly if your client supports file attachments.
 2. **Run setup** — tell your agent: *"Follow the instructions in this skill to configure DoiT MCP for [your client]."*
-3. The agent will write the correct config file and guide you through any OAuth steps.
+3. The agent will show the config snippet to add and guide you through any OAuth steps.
 
 Alternatively, ask your agent to run the **doit-mcp-setup** skill for your client:
 
@@ -112,7 +126,6 @@ Each skill contains:
 - `agents/openai.yaml` — agent configuration and tool dependencies
 - `references/` — detailed reference docs (dimensions, metrics, field mappings)
 - `templates/` — config snippets or output templates
-- `examples/` — working code examples (where applicable)
 
 ## How It Works
 

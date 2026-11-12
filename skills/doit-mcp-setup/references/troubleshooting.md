@@ -4,7 +4,7 @@
 
 | Symptom | Likely Cause | Fix |
 |---------|-------------|-----|
-| Server not appearing after config write | Client needs restart | Restart client or run `/mcp` (Claude Code) |
+| Server not appearing after the config change | Client needs restart | Restart client or run `/mcp` (Claude Code) |
 | "Unauthorized" after OAuth flow | OAuth token expired or revoked | Re-authorize in client UI |
 | "Forbidden" on tool calls | User lacks `Billing Profiles Admin` permission | Ask DoiT admin to grant the permission |
 | Tool list loads but calls fail | Session not scoped to correct customer | Call `validate_user` to confirm customer context |
@@ -42,7 +42,7 @@
 
 ### Gemini CLI
 - Run `/mcp auth doit-mcp` if the server requires authentication
-- Config is global at `~/.gemini/settings.json`
+- Config is global, in Gemini CLI's `settings.json`
 
 ### Codex
 - Config uses TOML format, not JSON
@@ -52,6 +52,6 @@
 ### DCI CLI
 - If `dci login` fails with a port binding error, another process is using port 8484 — close it and retry
 - If `dci login` opens a browser but auth doesn't complete, check that the browser redirected back to `localhost:8484`
-- For non-interactive environments (CI/CD), use `export DCI_API_KEY=<api-key>` instead of `dci login`
+- For non-interactive environments (CI/CD), see the [DCI CLI documentation](https://github.com/doitintl/dci-cli) for non-interactive authentication
 - Run `dci status` to verify auth method and connection
 - Update with `brew update && brew upgrade dci` (macOS) or `winget upgrade DoiT.dci` (Windows)
