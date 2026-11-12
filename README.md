@@ -28,20 +28,11 @@ claude plugin install doit-mcp@doit-mcp-skills
 
 Then run `/mcp` in Claude Code and authorize the DoiT server.
 
-### Claude Code channel (optional)
+### Claude Code channel (separate plugin)
 
-The plugin can also act as a Claude Code [channel](https://code.claude.com/docs/en/channels) (research preview): while a session is open, it tells Claude about new cost anomalies and cloud provider incidents, and Claude can look into them with the DoiT tools.
+To have an open Claude Code session told about new cost anomalies and cloud provider incidents, install the channel plugin from the [DoiT MCP server repository](https://github.com/doitintl/doit-mcp-server/blob/main/docs/channels.md). It is not part of this plugin.
 
-1. Run `/plugin configure doit-mcp@doit-mcp-skills` and set **DoiT API key (channel only)** to a personal API token from the DoiT console (Profile > API tokens). The tools keep signing in through your browser; only the channel uses the key.
-2. Start Claude Code with the channel:
-
-   ```bash
-   claude --channels plugin:doit-mcp@doit-mcp-skills
-   ```
-
-Plain `--channels` registers the plugin only where your organization allows it (`channelsEnabled` and `allowedChannelPlugins` in managed settings). Use the plugin id that `/plugin` shows if you installed it from another marketplace.
-
-What the channel runs and sends: `npx -y @doitintl/doit-mcp-server@3.1.0` (the open-source [DoiT MCP server](https://github.com/doitintl/doit-mcp-server), pinned to an exact version) in events-only mode. It serves no tools. With an API key set it polls two read-only DoiT API endpoints (cost anomalies and active cloud incidents) every 5 minutes by default, in every Claude Code session the plugin is loaded into, and sends requests only to the DoiT API. Events contain a fixed sentence and identifiers only. Without an API key it does nothing.
+### Support and privacy
 
 - Support: <https://support.doit.com>
 - Privacy policy: <https://www.doit.com/privacy>

@@ -64,10 +64,14 @@ Template: `templates/gemini-cli.json`
 
 ### Codex
 
-Template: `templates/codex.toml`
-
 1. Tell the user to run `codex mcp add doit-mcp --url https://mcp.doit.com/sse`.
-2. As an alternative, show the TOML snippet from `templates/codex.toml` for the user to add to their Codex `config.toml`, keeping any existing `mcp_servers` entries.
+2. As an alternative, show this TOML snippet for the user to add to their Codex `config.toml`, keeping any existing `mcp_servers` entries:
+
+   ```toml
+   [mcp_servers.doit-mcp]
+   enabled = true
+   url = "https://mcp.doit.com/sse"
+   ```
 3. Tell the user to run `codex mcp list` to verify the server is registered, then complete the authorization flow if prompted.
 
 ## Manual Clients
@@ -140,7 +144,7 @@ Quick checks:
 
 - **Claude Code requires `"type": "sse"` and `"oauth": { "callbackPort": 8080 }`**: This is unique to Claude Code. Other clients infer the transport from the URL. Missing the `type` field or using `"type": "http"` causes a silent connection failure. The `oauth.callbackPort` is required for the OAuth callback to complete.
 - **Cursor config is per-project**: The file lives at `.cursor/mcp.json` in the project root. Setting it globally does not work.
-- **Codex uses TOML, not JSON**: JSON syntax in the Codex `config.toml` will break the file. Use the TOML template.
+- **Codex uses TOML, not JSON**: JSON syntax in the Codex `config.toml` will break the file. Use the TOML snippet in the Codex section.
 - **ChatGPT needs developer mode first**: Without enabling developer mode in Settings, the MCP connector option is not visible.
 - **Do not mix local and remote**: If the user previously had a stdio-based setup (a local `npx` server with an API key), it must be fully removed before adding the remote HTTP setup. Mixing both causes duplicate or conflicting sessions.
 - **OAuth tokens expire**: If a previously working connection stops, the most likely cause is an expired OAuth token. Re-authorize in the client UI.
