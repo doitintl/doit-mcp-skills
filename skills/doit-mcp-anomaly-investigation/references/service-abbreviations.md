@@ -1,6 +1,6 @@
 # Service Name Abbreviations
 
-DoiT anomalies use abbreviated service names that may differ from the full cloud-native names. Use this mapping when searching cloud MCP tools by service.
+DoiT anomalies use abbreviated service names that may differ from the full cloud-native names. Use this mapping when a service filter does not match, or when pointing the user to the provider's console.
 
 ## AWS Services
 
@@ -35,6 +35,5 @@ DoiT anomalies use abbreviated service names that may differ from the full cloud
 
 ## Usage Notes
 
-- When filtering in cloud MCP tools, try the full cloud-native name first.
-- If the anomaly `serviceName` does not match a cloud API filter, check this table for the mapping.
-- GCP `@google-cloud/*` SDK packages use the full cloud name (e.g., `@google-cloud/bigquery`).
+- In `run_query` filters, `service_description` values must match the stored DoiT name exactly. `get_dimension` returns the valid values for the customer.
+- When pointing the user to a provider console or API, use the full cloud name.
