@@ -26,11 +26,7 @@ claude plugin marketplace add https://github.com/doitintl/doit-mcp-skills
 claude plugin install doit-mcp@doit-mcp-skills
 ```
 
-Then optionally run the setup skill to configure credentials:
-
-```
-/doit-mcp-setup
-```
+Then run `/mcp` in Claude Code and authorize the DoiT server.
 
 ### Claude Code channel (optional)
 
@@ -58,7 +54,7 @@ If you only want the skills without the plugin wrapper:
 claude install-skill https://github.com/doitintl/doit-mcp-skills
 ```
 
-Then optionally run the setup skill to configure credentials:
+Then optionally run the setup skill for connection steps:
 
 ```
 /doit-mcp-setup
@@ -70,7 +66,7 @@ The skills in this repo are plain Markdown files — any AI that can read a file
 
 1. **Point your agent at the skill file** — paste the contents of the relevant `SKILL.md` into your agent's context, or reference the file directly if your client supports file attachments.
 2. **Run setup** — tell your agent: *"Follow the instructions in this skill to configure DoiT MCP for [your client]."*
-3. The agent will write the correct config file and guide you through any OAuth steps.
+3. The agent will show the config snippet to add and guide you through any OAuth steps.
 
 Alternatively, ask your agent to run the **doit-mcp-setup** skill for your client:
 
@@ -130,7 +126,6 @@ Each skill contains:
 - `agents/openai.yaml` — agent configuration and tool dependencies
 - `references/` — detailed reference docs (dimensions, metrics, field mappings)
 - `templates/` — config snippets or output templates
-- `examples/` — working code examples (where applicable)
 
 ## How It Works
 
