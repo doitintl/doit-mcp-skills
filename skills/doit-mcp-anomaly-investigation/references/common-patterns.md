@@ -1,6 +1,6 @@
 # Common Anomaly Patterns
 
-Patterns observed in the DoiT Console codebase. Use these to form hypotheses faster — but always confirm with evidence.
+Common causes of cost anomalies by service. Use these to form hypotheses faster, then confirm with data.
 
 ## By Service (GCP)
 

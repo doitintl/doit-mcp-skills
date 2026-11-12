@@ -1,6 +1,6 @@
 # Anomaly Field Reference
 
-Fields returned by `get_anomaly` and `get_anomalies` from DoiT MCP. Use these to scope cloud follow-up calls.
+Fields commonly returned by `get_anomaly` and `get_anomalies`. Field names can vary between API versions; rely on what the tool result contains.
 
 ## Core Fields
 
@@ -25,17 +25,17 @@ Fields returned by `get_anomaly` and `get_anomalies` from DoiT MCP. Use these to
 
 ## Platform Values
 
-Use the `platform` field to choose the cloud path:
+The `platform` field identifies the cloud or vendor:
 
-| Value | Cloud Path |
+| Value | Platform |
 |-------|------------|
 | `google-cloud` | GCP |
 | `amazon-web-services` | AWS |
-| `microsoft-azure` | Azure (no MCP follow-up available yet) |
-| `snowflake` | Snowflake (no MCP follow-up available yet) |
-| `datadog` | Datadog (no MCP follow-up available yet) |
-| `databricks` | Databricks (no MCP follow-up available yet) |
-| `openai` | OpenAI (no MCP follow-up available yet) |
+| `microsoft-azure` | Azure |
+| `snowflake` | Snowflake |
+| `datadog` | Datadog |
+| `databricks` | Databricks |
+| `openai` | OpenAI |
 
 ## Top SKUs Breakdown
 
@@ -50,7 +50,7 @@ Use the `platform` field to choose the cloud path:
 }
 ```
 
-Use `resourceId` and `operation` to narrow cloud-specific follow-up calls.
+Use `resourceId` and `operation` to narrow follow-up cost queries.
 
 ## Sensitivity Levels
 

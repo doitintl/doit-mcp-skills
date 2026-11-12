@@ -1,70 +1,38 @@
 # Dimension Reference
 
-Dimensions available for `run_query` grouping and filtering. Use `list_dimensions` to confirm availability for the current customer — not all dimensions are available for all platforms.
+Dimensions used by `run_query` in `group` (rows), `dimensions` (columns) and `filters`. Each is an object with an `id` and a `type`. `list_dimensions` lists what is available for the customer, and `get_dimension` returns a dimension's valid values.
 
-## Datetime Dimensions
+## Fixed Dimensions (type `fixed`)
 
-Use these in `cols` for time-series output:
+| ID | Description |
+|----|-------------|
+| `cloud_provider` | Cloud or platform. Values are IDs: `amazon-web-services`, `google-cloud`, `microsoft-azure` |
+| `service_description` | Service name |
+| `sku_description` | SKU name |
+| `project_id` | GCP project, AWS account or Azure subscription |
+| `project_name` | Project display name |
+| `billing_account_id` | Billing account |
+| `region` | Cloud region |
+| `operation` | Operation type |
+| `resource_id` | Resource identifier |
+| `cost_type` | Cost type |
 
-| Dimension ID | Granularity |
-|-------------|-------------|
-| `datetime:year` | Yearly |
-| `datetime:quarter` | Quarterly |
-| `datetime:month` | Monthly |
-| `datetime:week` | Weekly |
-| `datetime:day` | Daily |
-| `datetime:hour` | Hourly |
+Other fixed dimensions exist and vary by customer and platform. Confirm with `list_dimensions` (filter `type:fixed`) before using an ID that is not in this table.
 
-## Fixed Dimensions
+## Time (type `datetime`)
 
-Standard fields available across most platforms:
+Time granularity is normally set with `timeInterval` (`hour`, `day`, `week`, `month`, `quarter`, `year`), which adds the time columns for you. Datetime dimensions such as `year`, `month` and `day` can also be placed in `dimensions` explicitly.
 
-| Dimension ID | Description |
-|-------------|-------------|
-| `fixed:billing_account_id` | Billing account |
-| `fixed:cloud_provider` | Cloud/platform (google-cloud, amazon-web-services, etc.) |
-| `fixed:project_id` | Project ID (GCP) or Account ID (AWS) |
-| `fixed:project_name` | Project display name |
-| `fixed:project_number` | Project/Account number |
-| `fixed:region` | Cloud region |
-| `fixed:service_description` | Service name |
-| `fixed:sku_description` | SKU name |
-| `fixed:operation` | Operation type |
-| `fixed:resource_id` | Resource identifier |
-| `fixed:resource_global_id` | Global resource identifier |
-| `fixed:cost_type` | Cost type |
-| `fixed:country` | Country |
-| `fixed:credit` | Credit type |
-| `fixed:feature` | Feature |
-| `fixed:invoice_month` | Invoice month |
-| `fixed:is_marketplace` | Whether it is a marketplace purchase |
-| `fixed:pricing_unit` | Pricing unit |
-| `fixed:savings_description` | Savings plan/commitment description |
+## Labels, Tags and Other Types
 
-## Kubernetes Dimensions
+| Type | Description |
+|------|-------------|
+| `label` | Resource labels |
+| `tag` | Resource tags |
+| `project_label` | Project-level labels |
+| `system_label` | System labels |
+| `attribution`, `attribution_group` | Attributions and attribution groups |
+| `allocation`, `allocation_rule` | Allocations and their rules |
+| `gke`, `gke_label` | GKE fields and labels |
 
-| Dimension ID | Description |
-|-------------|-------------|
-| `fixed:kubernetes_cluster_name` | K8s cluster name |
-| `fixed:kubernetes_namespace` | K8s namespace |
-| `gke:{field}` | GKE-specific fields |
-| `gke_label:{label_key}` | GKE labels |
-| `eks:cluster-name` | EKS cluster name |
-| `eks:nodegroup-name` | EKS node group name |
-
-## Label Dimensions
-
-Labels use base64-encoded keys:
-
-| Pattern | Description |
-|---------|-------------|
-| `label:{base64_key}` | Custom resource labels |
-| `system_label:{base64_key}` | System labels (GCP) |
-| `project_label:{base64_key}` | Project-level labels |
-
-## Attribution Dimensions
-
-| Pattern | Description |
-|---------|-------------|
-| `attribution:attribution` | Custom attribution rules |
-| `attribution_group:{group_id}` | Attribution groups |
+The IDs for these types are specific to each customer. Get them from `list_dimensions`, for example with filter `type:label`, and do not guess them.
