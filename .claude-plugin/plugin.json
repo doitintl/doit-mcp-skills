@@ -1,7 +1,7 @@
 {
   "name": "doit-mcp",
-  "description": "DoiT Cloud Intelligence for Claude: tools and skills for cloud cost analysis, reporting, anomalies, budgets and alerts, plus an optional Claude Code channel that tells an open session about new cost anomalies and cloud incidents.",
-  "version": "1.1.0",
+  "description": "DoiT Cloud Intelligence for Claude: tools and skills for cloud cost analysis, reporting, anomalies, budgets and alerts.",
+  "version": "1.1.1",
   "author": {
     "name": "DoiT International"
   },
@@ -21,50 +21,6 @@
     "doit"
   ],
   "skills": "./skills/",
-  "mcpServers": {
-    "doit-channel": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@doitintl/doit-mcp-server@3.1.0"
-      ],
-      "env": {
-        "DOIT_API_KEY": "${user_config.api_key}",
-        "DOIT_CHANNEL_ONLY": "true",
-        "DOIT_CHANNEL_EVENTS": "${user_config.events}",
-        "DOIT_CHANNEL_POLL_SECONDS": "${user_config.poll_seconds}"
-      }
-    }
-  },
-  "supportUrl": "https://support.doit.com",
-  "privacyPolicyUrl": "https://www.doit.com/privacy",
-  "userConfig": {
-    "api_key": {
-      "type": "string",
-      "title": "DoiT API key (channel only)",
-      "description": "Optional. Needed only to receive channel events in Claude Code. A personal API token from the DoiT console (Profile > API tokens). The tools sign in through your browser and do not use it.",
-      "sensitive": true,
-      "required": false,
-      "default": ""
-    },
-    "events": {
-      "type": "string",
-      "title": "Channel events",
-      "description": "Comma-separated event kinds to push into the session: anomalies, incidents.",
-      "default": "anomalies,incidents"
-    },
-    "poll_seconds": {
-      "type": "number",
-      "title": "Channel poll interval (seconds)",
-      "description": "How often to check for new events. Minimum 60.",
-      "default": 300,
-      "min": 60
-    }
-  },
-  "channels": [
-    {
-      "server": "doit-channel",
-      "displayName": "DoiT Cloud Intelligence"
-    }
-  ]
+  "mcpServers": "./.mcp.json",
+  "privacyPolicyUrl": "https://www.doit.com/privacy"
 }

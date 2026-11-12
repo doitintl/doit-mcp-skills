@@ -1,14 +1,14 @@
 {
   "name": "doit-mcp-skills",
-  "description": "DoiT Cloud Intelligence plugin for Claude: MCP tools, skills and an optional Claude Code channel.",
+  "description": "DoiT Cloud Intelligence plugin for Claude: MCP tools and skills.",
   "owner": {
     "name": "DoiT International"
   },
   "plugins": [
     {
       "name": "doit-mcp",
-      "description": "DoiT Cloud Intelligence for Claude: tools and skills for cloud cost analysis, reporting, anomalies, budgets and alerts, plus an optional Claude Code channel that tells an open session about new cost anomalies and cloud incidents.",
-      "version": "1.1.0",
+      "description": "DoiT Cloud Intelligence for Claude: tools and skills for cloud cost analysis, reporting, anomalies, budgets and alerts.",
+      "version": "1.1.1",
       "author": {
         "name": "DoiT International"
       },
